@@ -14,21 +14,25 @@ export default class TodoList extends PureComponent {
   keyExtractor = (item) => item.id.toString()
 
   renderItem = ({item}) => {
-    return <TodoListItem
-      id={item.id}
-      name={item.name}
-      status={item.status}
-    />
+    return(
+      <TodoListItem
+        id={item.id}
+        name={item.name}
+        status={item.status}
+      />
+    );
   }
 
   renderList(data) {
-    return <FlatList
-      style={styles.todoListContainer}
-      keyboardShouldPersistTaps="handled" 
-      keyExtractor={this.keyExtractor}
-      renderItem={this.renderItem}
-      data={data}
-    />
+    return(
+      <FlatList
+        style={styles.todoListContainer}
+        keyboardShouldPersistTaps="handled" 
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderItem}
+        data={data}
+      />
+    );
   }
   render() {
     return <AppContext.Consumer>{({todoList}) => this.renderList(todoList)}</AppContext.Consumer>

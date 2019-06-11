@@ -32,31 +32,34 @@ export default class TodoListItem extends PureComponent<Props> {
 
   onRequestDeleteRow() {
     if (this.todoHelper) {
-      this.todoHelper.toggleItem(this.props.id)
+      this.todoHelper.toggleItem(this.props.id);
     }
   }
 
   onRequestToggleValue = () => {
     if (this.todoHelper) {
-      this.todoHelper.toggleItem(this.props.id)
+      this.todoHelper.toggleItem(this.props.id);
     }
   }
 
   renderContent(todoHelper) {
     this.todoHelper = todoHelper;
-    let { status, name } = this.props
+    let { status, name } = this.props;
 
-    return <Swipeout style={styles.todoListItemSwipteContainer} right={[this.swipeoutBtns]}>
-      <View style={styles.todoListItemContainer}>
-        <CheckBox 
-          style={styles.todoListItemCheckbox} 
-          iconColor={PASTEL_COLOR.pink}
-          isChecked={status == TODO_STATUS.DONE}
-          onRequestChangeValue={this.onRequestToggleValue}
-        />
-        <Text style={styles.todoListItemName}>{name}</Text>
-      </View>
-    </Swipeout>
+    return(
+
+      <Swipeout style={styles.todoListItemSwipteContainer} right={[this.swipeoutBtns]}>
+        <View style={styles.todoListItemContainer}>
+          <CheckBox 
+            style={styles.todoListItemCheckbox} 
+            iconColor={PASTEL_COLOR.pink}
+            isChecked={status == TODO_STATUS.DONE}
+            onRequestChangeValue={this.onRequestToggleValue}
+          />
+          <Text style={styles.todoListItemName}>{name}</Text>
+        </View>
+      </Swipeout>
+    );
   }
 
   render() {

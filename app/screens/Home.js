@@ -25,11 +25,13 @@ export default class Home extends PureComponent {
   renderInput(todoHelper) {
     this.todoHelper = todoHelper;
 
-    return <DGInput 
-      style={styles.todoInput} 
-      placeholder={STRINGS.todoPlaceHolder}
-      onSubmit={this.onRequestSubmitTodoName}
-    />
+    return(
+      <DGInput 
+        style={styles.todoInput} 
+        placeholder={STRINGS.todoPlaceHolder}
+        onSubmit={this.onRequestSubmitTodoName}
+      />
+    );
   }
 
   render() {

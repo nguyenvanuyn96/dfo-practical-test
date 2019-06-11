@@ -4,7 +4,8 @@ export const PASTEL_COLOR = {
   yellow: "#ffffba",
   green: "#baffc9",
   blue: "#bae1ff",
-  red: "#a02c2d"
+  red: "#a02c2d",
+  white: "#fbf9f9"
 }
 
 export const PLAIN_COLOR = {

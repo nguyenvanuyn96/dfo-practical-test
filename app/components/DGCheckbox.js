@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 import {
   View,
   TextInput,
   StyleSheet,
   Dimensions,
   TouchableWithoutFeedback
-} from 'react-native'
-import PropTypes from 'prop-types'
-import { PASTEL_COLOR } from '../utils/colors'
-import Icon from 'react-native-ionicons'
+} from 'react-native';
+import PropTypes from 'prop-types';
+import { PASTEL_COLOR } from '../utils/colors';
+import Icon from 'react-native-ionicons';
 
 type Props = {
   isChecked: PropTypes.bool.isRequired,
@@ -28,7 +28,10 @@ export default class DGCheckbox extends PureComponent<Props> {
     let { isChecked, style, iconColor } = this.props
     let iconName = isChecked ? "checkmark-circle" : "radio-button-off"
     return(
-      <TouchableWithoutFeedback style={style} onPress={this.props.onRequestChangeValue}>
+      <TouchableWithoutFeedback 
+        style={style} 
+        onPress={this.props.onRequestChangeValue}
+      >
         <Icon name={iconName} size={24} color={iconColor}/>
       </TouchableWithoutFeedback>
     );
