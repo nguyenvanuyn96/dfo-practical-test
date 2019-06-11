@@ -22,27 +22,29 @@ export default class Home extends PureComponent {
     Keyboard.dismiss();
   }
 
-  renderInput(todoHelper) {
-    this.todoHelper = todoHelper;
+  renderContent(context) {
+    this.todoHelper = context.todoHelper;
 
     return(
-      <DGInput 
-        style={styles.todoInput} 
-        placeholder={STRINGS.todoPlaceHolder}
-        onSubmit={this.onRequestSubmitTodoName}
-      />
+      <View style={styles.homeContainer}>
+        <DGInput 
+          style={styles.todoInput} 
+          placeholder={STRINGS.todoPlaceHolder}
+          onSubmit={this.onRequestSubmitTodoName}
+        />
+        <TodoList 
+          data={context.todoList}
+        />  
+      </View>
     );
   }
 
   render() {
     return (
       <AppProvider title={STRINGS.appName}>
-        <View style={styles.homeContainer}>
-          <AppContext.Consumer>
-            {({todoHelper}) => this.renderInput(todoHelper)}
-          </AppContext.Consumer>
-          <TodoList />
-        </View>
+        <AppContext.Consumer>
+          {(context) => this.renderContent(context)}
+        </AppContext.Consumer>
       </AppProvider>
     );
   }
