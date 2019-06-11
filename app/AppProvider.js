@@ -35,7 +35,8 @@ const DEFAULT_STATE = {
   ],
   todoHelper: {
     addTodo: undefined,
-    toggleItem: undefined
+    toggleItem: undefined,
+    deleteItem: undefined
   }
 }
 
@@ -51,7 +52,8 @@ export default class AppProvider extends Component<Props> {
     ...DEFAULT_STATE,
     todoHelper: {
       addTodo: (name: String) => this.addTodo(name),
-      toggleItem: (id: Number) => this.toggleItem(id)
+      toggleItem: (id: Number) => this.toggleItem(id),
+      deleteItem: (id: Number) => this.deleteItem(id)
     }
   }
 
@@ -71,8 +73,18 @@ export default class AppProvider extends Component<Props> {
         }
       }
 
-      return i
+      return i;
     });
+
+    this.setState({ 
+      todoList: newList
+    });
+  }
+
+  deleteItem(id: Number) {
+    let newList = this.state.todoList.filter(i => {
+      return i.id != id;
+    })
 
     this.setState({ 
       todoList: newList

@@ -32,7 +32,7 @@ export default class TodoListItem extends PureComponent<Props> {
 
   onRequestDeleteRow() {
     if (this.todoHelper) {
-      this.todoHelper.toggleItem(this.props.id);
+      this.todoHelper.deleteItem(this.props.id);
     }
   }
 
