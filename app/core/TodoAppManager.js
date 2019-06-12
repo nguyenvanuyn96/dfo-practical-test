@@ -7,6 +7,7 @@ import {
   merge,
   filter
 } from './TodoListHelper'
+import MongoDBManager from './MongoDBManager';
 
 export const TODO_STATUS = {
   DONE: "done",
@@ -33,11 +34,21 @@ export default class TodoAppManager {
   todoList: Array = undefined;
   todoDisplayList: Array = undefined;
   observers: Array = undefined;
+  mongoDbManager: MongoDBManager = undefined;
 
   constructor() {
+    this.mongoDbManager = MongoDBManager.getInstance()
     this.todoList = [];
     this.todoDisplayList = [];
     this.observers = [];
+
+    this.mongoDbManager.getList().then(docs => {
+      if (Array.isArray(docs) && docs.length > 0) {
+        this.todoList = docs[0].data;
+        this.todoDisplayList = this.todoList.slice();
+        this.notifyChanged();
+      }
+    })
   }
 
   addTodoListObserver(observer: Object) {
@@ -56,27 +67,33 @@ export default class TodoAppManager {
     this.observers.forEach(o => o(this.todoDisplayList));
   }
 
+  syncList() {
+    this.todoList = merge(this.todoList, this.todoDisplayList);
+    this.mongoDbManager.saveList(this.todoList)
+  }
+
   addNewTodo(name: String) {
     this.todoDisplayList = addNewTodo(this.todoDisplayList, name);
-    this.todoList = merge(this.todoList, this.todoDisplayList);
+    this.syncList();
     this.notifyChanged();
   }
 
   toggleTodo(id: Number) {
     this.todoDisplayList = toggleTodo(this.todoDisplayList, id);
-    this.todoList = merge(this.todoList, this.todoDisplayList);
+    this.syncList();
     this.notifyChanged();
   }
 
   toggleAll() {
     this.todoDisplayList = toggleAll(this.todoDisplayList);
-    this.todoList = merge(this.todoList, this.todoDisplayList);
+    this.syncList();
     this.notifyChanged();
   }
 
   deleteTodo(id: Number) {
     this.todoDisplayList = deleteTodo(this.todoDisplayList, id);
     this.todoList = deleteTodo(this.todoList, id);
+    this.mongoDbManager.saveList(this.todoList)
     this.notifyChanged();
   }
 
