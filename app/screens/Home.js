@@ -10,6 +10,7 @@ import AppProvider, { AppContext } from '../AppProvider';
 import STRINGS from '../res/strings';
 import DGInput from '../components/DGInput';
 import TodoList from '../containers/TodoList';
+import Filter from '../containers/Filter';
 
 export default class Home extends PureComponent {
 
@@ -34,7 +35,8 @@ export default class Home extends PureComponent {
         />
         <TodoList 
           data={context.todoList}
-        />  
+        /> 
+        <Filter />
       </View>
     );
   }

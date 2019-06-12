@@ -5,34 +5,17 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
-import { PASTEL_COLOR } from './utils/colors';
+import PropTypes from 'prop-types';
+import TodoAppManager, { TODO_STATUS } from './core/TodoAppManager';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Heading1, Heading2, Body1 } from './utils/styles';
-import PropTypes from 'prop-types';
+import { PASTEL_COLOR } from './utils/colors';
+import { State, TodoItem } from './core/Types';
+import { TODO_FILTER_STATUS } from './core/TodoAppManager'
 
-export const TODO_STATUS = {
-  DONE: "done",
-  ACTIVE: "active"
-}
-
-const DEFAULT_STATE = {
-  todoList: [
-    {
-      id: 0,
-      name: "I need to buy something that required to my new case of nintendo switch",
-      status: TODO_STATUS.DONE
-    },
-    {
-      id: 1,
-      name: "Todo 2",
-      status: TODO_STATUS.DONE
-    },
-    {
-      id: 2,
-      name: "Todo 3",
-      status: TODO_STATUS.ACTIVE
-    }
-  ],
+const DEFAULT_STATE: State = {
+  todoList: undefined,
+  filterStatus: undefined,
   todoHelper: {
     addTodo: undefined,
     toggleItem: undefined,
@@ -50,58 +33,57 @@ type Props = {
 export default class AppProvider extends Component<Props> {
   state = {
     ...DEFAULT_STATE,
+    filterStatus: TODO_FILTER_STATUS.NONE,
     todoHelper: {
       addTodo: (name: String) => this.addTodo(name),
       toggleItem: (id: Number) => this.toggleItem(id),
-      deleteItem: (id: Number) => this.deleteItem(id)
+      deleteItem: (id: Number) => this.deleteItem(id),
+      filter: (status: String) => this.filter(status)
     }
   }
 
+  todoAppManager = TodoAppManager.getInstance();
+
+  componentDidMount() {
+    this.todoAppManager.addTodoListObserver(this.onTodoListChanged)
+  }
+
+  componentWillUnmount() {
+    this.todoAppManager.removeTodoListObserver(this.onTodoListChanged)
+  }
+
+  onTodoListChanged = (todoList) => {
+    this.setState({ todoList })
+  }
+
   addTodo(name: String) {
-    let newList = [...this.state.todoList, { id: 123, name, status: TODO_STATUS.ACTIVE }];
-    this.setState({ 
-      todoList: newList
-    });
+    this.todoAppManager.addNewTodo(name);
   }
 
   toggleItem(id: Number) {
-    let newList = this.state.todoList.map(i => {
-      if (i.id == id) {
-        return {
-          ...i,
-          status: i.status == TODO_STATUS.DONE ? TODO_STATUS.ACTIVE : TODO_STATUS.DONE
-        }
-      }
-
-      return i;
-    });
-
-    this.setState({ 
-      todoList: newList
-    });
+    this.todoAppManager.toggleTodo(id);
+    this.refreshDisplayList()
   }
 
   deleteItem(id: Number) {
-    let newList = this.state.todoList.filter(i => {
-      return i.id != id;
-    })
+    this.todoAppManager.deleteTodo(id);
+  }
 
-    this.setState({ 
-      todoList: newList
-    });
+  filter(filterStatus: String) {
+    this.setState({ filterStatus })
+    this.todoAppManager.filter(filterStatus);
   }
 
   toggleAll = () => {
-    let newList = this.state.todoList.map(i => {
-      return {
-        ...i,
-        status: i.status == TODO_STATUS.DONE ? TODO_STATUS.ACTIVE : TODO_STATUS.DONE
-      }
-    });
+    this.todoAppManager.toggleAll();
+    this.refreshDisplayList()
+  }
 
-    this.setState({ 
-      todoList: newList
-    });
+  refreshDisplayList() {
+    let { filterStatus } = this.state
+    if (filterStatus != TODO_FILTER_STATUS.NONE) {
+      this.todoAppManager.filter(filterStatus);
+    }
   }
 
   renderHeader() {

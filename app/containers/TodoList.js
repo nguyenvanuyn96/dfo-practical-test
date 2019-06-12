@@ -1,17 +1,16 @@
 import React, { PureComponent } from 'react';
 import {
-  Keyboard,
-  StyleSheet, 
-  View,
+  StyleSheet,
   FlatList
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { AppContext } from '../AppProvider';
 import TodoListItem from '../components/TodoListItem';
+import { AppContext } from '../AppProvider';
+import { TodoItem } from '../core/Types';
 
 export default class TodoList extends PureComponent {
 
-  keyExtractor = (item) => item.id.toString()
+  keyExtractor = (item: TodoItem) => [item.id, item.name, item.status].join("-")
 
   renderItem = ({item}) => {
     return(
