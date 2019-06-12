@@ -3,7 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Animated
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Swipeout from 'react-native-swipeout';
@@ -14,6 +15,8 @@ import { PASTEL_COLOR, PLAIN_COLOR } from '../utils/colors';
 import { CardContent, Body1 } from '../utils/styles';
 import strings from '../res/strings';
 
+const ANIMATION_DURATION = 250;
+
 type Props = {
   id: PropTypes.integer.isRequired,
   name: PropTypes.string.isRequired,
@@ -21,7 +24,7 @@ type Props = {
 }
 export default class TodoListItem extends PureComponent<Props> {
 
-  todoHelper = undefined
+  todoHelper = undefined;
 
   swipeoutBtns = {
     text: strings.delete,
@@ -30,10 +33,28 @@ export default class TodoListItem extends PureComponent<Props> {
     onPress: () => this.onRequestDeleteRow()
   }
 
+  constructor(props) {
+    super(props);
+
+    this.animated = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    Animated.timing(this.animated, {
+      toValue: 1,
+      duration: ANIMATION_DURATION,
+    }).start();
+  }
+
   onRequestDeleteRow() {
-    if (this.todoHelper) {
-      this.todoHelper.deleteItem(this.props.id);
-    }
+    Animated.timing(this.animated, {
+      toValue: 0,
+      duration: ANIMATION_DURATION,
+    }).start(() => {
+      if (this.todoHelper) {
+        this.todoHelper.deleteItem(this.props.id);
+      }
+    });
   }
 
   onRequestToggleValue = () => {
@@ -47,18 +68,23 @@ export default class TodoListItem extends PureComponent<Props> {
     let { status, name } = this.props;
 
     return(
-
-      <Swipeout style={styles.todoListItemSwipteContainer} right={[this.swipeoutBtns]}>
-        <View style={styles.todoListItemContainer}>
-          <CheckBox 
-            style={styles.todoListItemCheckbox} 
-            iconColor={PASTEL_COLOR.pink}
-            isChecked={status == TODO_STATUS.DONE}
-            onRequestChangeValue={this.onRequestToggleValue}
-          />
-          <Text style={styles.todoListItemName}>{name}</Text>
-        </View>
-      </Swipeout>
+      <Animated.View style={[
+        { opacity: this.animated },
+        { transform: [{ scale: this.animated }] }
+      ]}>
+        <Swipeout style={styles.todoListItemSwipteContainer} 
+          right={[this.swipeoutBtns]}>
+          <View style={styles.todoListItemContainer}>
+            <CheckBox 
+              style={styles.todoListItemCheckbox} 
+              iconColor={PASTEL_COLOR.pink}
+              isChecked={status == TODO_STATUS.DONE}
+              onRequestChangeValue={this.onRequestToggleValue}
+            />
+            <Text style={styles.todoListItemName}>{name}</Text>
+          </View>
+        </Swipeout>
+      </Animated.View>
     );
   }
 
