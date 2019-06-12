@@ -1,5 +1,5 @@
 import { TodoItem } from './Types';
-import { TODO_STATUS, TODO_FILTER_STATUS } from './TodoAppManager';
+import { TODO_STATUS, TODO_FILTER_STATUS } from './Constants';
 import lodash from 'lodash';
 import { functionTypeAnnotation } from '@babel/types';
 
@@ -7,12 +7,12 @@ export function addNewTodo(list: Array<TodoItem>, name: String): Array {
   let maxIdObject = lodash.maxBy(list, 'id')
   if (maxIdObject) {
     return [
-      ...list,
       {
         id: maxIdObject.id + 1,
         name,
         status: TODO_STATUS.ACTIVE
-      }
+      },
+      ...list
     ]
   }
   else {

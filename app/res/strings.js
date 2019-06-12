@@ -8,5 +8,6 @@ export default STRINGS = {
   active: "Active",
   allEmpty: 'No TODO item',
   doneEmpty: 'No DONE item',
-  activeEmpty: 'No ACTIVE item'
+  activeEmpty: 'No ACTIVE item',
+  requireMoveToAllFilter: "Auto clear filter"
 }

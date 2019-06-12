@@ -12,7 +12,7 @@ import { AppContext } from '../AppProvider';
 import { TodoItem } from '../core/Types';
 import STRINGS from '../res/strings';
 import { Body1 } from '../utils/styles';
-import { TODO_FILTER_STATUS } from '../core/TodoAppManager';
+import { TODO_FILTER_STATUS } from '../core/Constants';
 
 export default class TodoList extends PureComponent {
 
@@ -60,7 +60,7 @@ export default class TodoList extends PureComponent {
     return(
       <FlatList
         style={styles.todoListContainer}
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={styles.todoListContentContainer}
         keyboardShouldPersistTaps="handled" 
         keyExtractor={this.keyExtractor}
         renderItem={this.renderItem}
@@ -74,6 +74,10 @@ export default class TodoList extends PureComponent {
 const styles = StyleSheet.create({
   todoListContainer: {
     paddingTop: 12
+  },
+  todoListContentContainer: {
+    flexGrow: 1, 
+    paddingBottom: 12
   },
   todoListEmptyContainer: {
     flex: 1, 

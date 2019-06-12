@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import Swipeout from 'react-native-swipeout';
 import CheckBox from '../components/DGCheckbox'
 import { AppContext } from '../AppProvider';
-import { TODO_STATUS } from '../core/TodoAppManager'
+import { TODO_STATUS } from '../core/Constants'
 import { PASTEL_COLOR, PLAIN_COLOR } from '../utils/colors';
 import { CardContent, Body1 } from '../utils/styles';
 import strings from '../res/strings';

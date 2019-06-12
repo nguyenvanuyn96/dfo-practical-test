@@ -6,12 +6,15 @@ import {
   TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
-import TodoAppManager, { TODO_STATUS } from './core/TodoAppManager';
+import TodoAppManager from './core/TodoAppManager';
+import Toast from 'react-native-toast-native';
+import { TODO_STATUS } from './core/Constants';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Heading1, Heading2, Body1 } from './utils/styles';
 import { PASTEL_COLOR } from './utils/colors';
 import { State, TodoItem } from './core/Types';
-import { TODO_FILTER_STATUS } from './core/TodoAppManager'
+import { TODO_FILTER_STATUS } from './core/Constants'
+import STRINGS from './res/strings';
 
 const DEFAULT_STATE: State = {
   todoList: undefined,
@@ -57,6 +60,10 @@ export default class AppProvider extends Component<Props> {
   }
 
   addTodo(name: String) {
+    if (this.state.filterStatus == TODO_FILTER_STATUS.DONE) {
+      this.filter(TODO_FILTER_STATUS.NONE);
+      Toast.show(STRINGS.requireMoveToAllFilter, Toast.SHORT, Toast.BOTTOM, styles.toast);
+    }
     this.todoAppManager.addNewTodo(name);
   }
 
@@ -119,5 +126,12 @@ const styles = StyleSheet.create({
   action: {
     ...Heading1,
     marginRight: 16
+  },
+  toast: {
+    width: 160,
+    height: 28,
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderRadius: 4
   }
 });

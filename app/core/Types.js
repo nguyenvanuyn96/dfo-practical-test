@@ -1,4 +1,4 @@
-import { TODO_STATUS, TODO_FILTER_STATUS } from './TodoAppManager'
+import { TODO_STATUS, TODO_FILTER_STATUS } from './Constants'
 
 export type TodoItem = {
   id: Number,

@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { TODO_FILTER_STATUS } from '../core/TodoAppManager'
+import { TODO_FILTER_STATUS } from '../core/Constants'
 import { PASTEL_COLOR } from '../utils/colors';
 import Icon from 'react-native-ionicons';
 import { Body1 } from '../utils/styles';

@@ -8,7 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import DGSelectItem from '../components/DGSelectItem';
 import STRINGS from '../res/strings'
-import { TODO_FILTER_STATUS } from '../core/TodoAppManager'
+import { TODO_FILTER_STATUS } from '../core/Constants'
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { AppContext } from '../AppProvider';
 import { PASTEL_COLOR } from '../utils/colors';
