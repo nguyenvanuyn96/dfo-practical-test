@@ -76,7 +76,7 @@ export default class TodoAppManager {
 
   deleteTodo(id: Number) {
     this.todoDisplayList = deleteTodo(this.todoDisplayList, id);
-    this.todoList = merge(this.todoList, this.todoDisplayList);
+    this.todoList = deleteTodo(this.todoList, id);
     this.notifyChanged();
   }
 
