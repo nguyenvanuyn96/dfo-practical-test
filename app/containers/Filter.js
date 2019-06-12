@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import DGSelectItem from '../components/DGSelectItem';
-import STRINGS from '../res/strings'
+import STRINGS from '../res/strings';
 import { TODO_FILTER_STATUS } from '../core/Constants'
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { AppContext } from '../AppProvider';
@@ -32,7 +32,7 @@ const FILTER_MODEL = [
 
 export default class Filter extends PureComponent {  
 
-  todoHelper = undefined
+  todoHelper = undefined;
 
   onRequestFilter = (newStatus: String) => {
     this.todoHelper.filter(newStatus);
@@ -53,7 +53,7 @@ export default class Filter extends PureComponent {
   }
 
   renderContent(filterStatus: TODO_FILTER_STATUS, todoHelper) {
-    this.todoHelper = todoHelper
+    this.todoHelper = todoHelper;
 
     return(
       <View style={styles.filterContainer}>

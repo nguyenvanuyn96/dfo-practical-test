@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { TODO_FILTER_STATUS } from '../core/Constants'
+import { TODO_FILTER_STATUS } from '../core/Constants';
 import { PASTEL_COLOR } from '../utils/colors';
 import Icon from 'react-native-ionicons';
 import { Body1 } from '../utils/styles';
@@ -22,14 +22,14 @@ type Props = {
 export default class DGSelectItem extends PureComponent<Props> {
   onRequestChangeValue = () => {
     if (this.props.onRequestChangeValue) {
-      this.props.onRequestChangeValue(this.props.value)
+      this.props.onRequestChangeValue(this.props.value);
     }
   }
 
   render() {
-    let { isSelected, style, title } = this.props
-    let additionContainerStyle = isSelected ? styles.additionSelectedItemContainer : null
-    let additionTextStyle = isSelected ? styles.additionSelectedItemText : null
+    let { isSelected, style, title } = this.props;
+    let additionContainerStyle = isSelected ? styles.additionSelectedItemContainer : null;
+    let additionTextStyle = isSelected ? styles.additionSelectedItemText : null;
     return(
       <TouchableOpacity
         style={[styles.selectItemContainer, style, additionContainerStyle]} 

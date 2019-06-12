@@ -19,14 +19,14 @@ type Props = {
 export default class DGCheckbox extends PureComponent<Props> {
   onRequestChangeValue = () => {
     if (this.props.onRequestChangeValue) {
-      let newValue = !this.props.isChecked
-      this.props.onRequestChangeValue(newValue)
+      let newValue = !this.props.isChecked;
+      this.props.onRequestChangeValue(newValue);
     }
   }
 
   render() {
-    let { isChecked, style, iconColor } = this.props
-    let iconName = isChecked ? "checkmark-circle" : "radio-button-off"
+    let { isChecked, style, iconColor } = this.props;
+    let iconName = isChecked ? "checkmark-circle" : "radio-button-off";
     return(
       <TouchableWithoutFeedback 
         style={style} 

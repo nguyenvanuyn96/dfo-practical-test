@@ -1,4 +1,4 @@
-import { TodoItem } from './Types'
+import { TodoItem } from './Types';
 import { 
   deleteTodo, 
   toggleAll, 
@@ -6,7 +6,7 @@ import {
   addNewTodo, 
   merge,
   filter
-} from './TodoListHelper'
+} from './TodoListHelper';
 import MongoDBManager from './MongoDBManager';
 import { TODO_STATUS, TODO_FILTER_STATUS } from './Constants';
 
@@ -27,7 +27,7 @@ export default class TodoAppManager {
   mongoDbManager: MongoDBManager = undefined;
 
   constructor() {
-    this.mongoDbManager = MongoDBManager.getInstance()
+    this.mongoDbManager = MongoDBManager.getInstance();
     this.todoList = [];
     this.todoDisplayList = [];
     this.observers = [];

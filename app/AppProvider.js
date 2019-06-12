@@ -13,7 +13,7 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Heading1, Heading2, Body1 } from './utils/styles';
 import { PASTEL_COLOR } from './utils/colors';
 import { State, TodoItem } from './core/Types';
-import { TODO_FILTER_STATUS } from './core/Constants'
+import { TODO_FILTER_STATUS } from './core/Constants';
 import STRINGS from './res/strings';
 
 const DEFAULT_STATE: State = {
