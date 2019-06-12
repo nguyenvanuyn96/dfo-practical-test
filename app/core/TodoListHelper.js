@@ -47,16 +47,16 @@ export function toggleAll(list: Array<TodoItem>): Array {
 }
 
 export function deleteTodo(list: Array<TodoItem>, id: Number): Array {
-  return list.filter(t => t.id != id);
+  return list.filter(t => t.id != id).sort((a, b) => a.id < b.id);
 }
 
 export function filter(list: Array<TodoItem>, status: TODO_FILTER_STATUS) {
-  return list.filter(t => t.status == status)
+  return list.filter(t => t.status == status).sort((a, b) => a.id < b.id);
 }
 
 export function merge(listA: Array<TodoItem>, listB: Array<TodoItem>): Array {
   return lodash.unionBy([...listA, ...listB], 'id').map(t => {
     let matchedItem = lodash.find(listB, ['id', t.id])
     return matchedItem ? matchedItem : t
-  })
+  }).sort((a, b) => a.id < b.id);
 }

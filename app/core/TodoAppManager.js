@@ -34,7 +34,7 @@ export default class TodoAppManager {
 
     this.mongoDbManager.getList().then(docs => {
       if (Array.isArray(docs) && docs.length > 0) {
-        this.todoList = docs[0].data;
+        this.todoList = docs[0].data.sort((a, b) => a.id < b.id);;
         this.todoDisplayList = this.todoList.slice();
         this.notifyChanged();
       }
