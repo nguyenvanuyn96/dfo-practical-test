@@ -1,6 +1,8 @@
 # TodoApp - DFO practical test
 A TodoApp React Native assignment.
 
+![](demo.gif)
+
 ## 3rd-parties 
 + react-native-ionicons
 + react-native-iphone-x-helper
