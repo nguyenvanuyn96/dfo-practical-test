@@ -1,4 +1,4 @@
-# TodoApp - DFO practical test ihakshdfajkfhajkshdf
+# TodoApp - DFO practical test ihakshdfajkfhajkshdflkjal;dskf
 A TodoApp React Native assignment.
 
 ![](demo.gif)
